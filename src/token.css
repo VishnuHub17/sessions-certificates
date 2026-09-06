@@ -1,0 +1,14 @@
+/* src/token.css */
+/* Additional design token classes derived from Stitch CSS variables */
+.bg-surface-container-low { background-color: var(--surface-container-low, #1c1b1e); }
+.border-outline-variant { border-color: var(--outline-variant, #4a4455); }
+.hover\:border-outline:hover { border-color: var(--outline, #958da1); }
+.bg-primary { background: var(--primary, #d2bbff); }
+.text-on-primary { color: var(--on-primary, #3f008e); }
+.bg-primary-hover:hover { background: var(--primary-fixed-dim, #d2bbff); }
+.text-success { color: var(--success, #00c853); }
+.text-error { color: var(--error, #ffb4ab); }
+.text-on-surface-variant { color: var(--on-surface-variant, #ccc3d8); }
+.text-on-surface { color: var(--on-surface, #e5e1e5); }
+.bg-secondary-container { background-color: var(--secondary-container, #6f00be); }
+.text-on-secondary-container { color: var(--on-secondary-container, #d6a9ff); }

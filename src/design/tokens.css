@@ -1,0 +1,45 @@
+/* src/design/tokens.css */
+:root {
+  /* Colors (derived from Stitch designMd) */
+  --color-surface: #131316;
+  --color-primary: #d2bbff;
+  --color-primary-fixed: #eaddff;
+  --color-primary-fixed-dim: #d2bbff;
+  --color-on-primary: #3f008e;
+  --color-on-primary-fixed-variant: #25005a;
+  --color-secondary: #ddb7ff;
+  --color-secondary-fixed: #f0dbff;
+  --color-on-secondary: #490080;
+  --color-tertiary: #ddb8ff;
+  --color-on-tertiary: #490081;
+  --color-surface-variant: #353438;
+  --color-surface-container-low: #1c1b1e;
+  --color-surface-container: #201f22;
+  --color-on-surface: #e5e1e5;
+  --color-on-surface-variant: #ccc3d8;
+  --color-outline: #958da1;
+  --color-primary-gradient: linear-gradient(45deg, #7C3AED, #A855F7);
+  /* Radii */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+  /* Spacing */
+  --spacing-gutter: 24px;
+  --spacing-element-gap: 16px;
+  --spacing-section-gap: 64px;
+  --spacing-margin-mobile: 16px;
+  --spacing-container-max: 1200px;
+}
+
+/* Utility classes */
+.bg-surface { background-color: var(--color-surface); }
+.text-primary { color: var(--color-primary); }
+.bg-primary { background-color: var(--color-primary); }
+.border-primary { border-color: var(--color-primary); }
+.rounded-sm { border-radius: var(--radius-sm); }
+.rounded-md { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-xl { border-radius: var(--radius-xl); }
+.rounded-full { border-radius: var(--radius-full); }

@@ -1,0 +1,77 @@
+@import "./design/tokens.css";
+@import "./token.css";
+@import "tailwindcss";
+@config "../tailwind.config.cjs";
+
+/* Custom global styles matching Stitch design */
+body {
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+}
+
+.glass-panel {
+  background: rgba(19, 19, 22, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.input-field {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--color-on-surface);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-field:focus,
+.input-field:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(210, 187, 255, 0.25);
+}
+
+.input-field::placeholder {
+  color: var(--color-on-surface-variant);
+  opacity: 0.6;
+}
+
+.btn-primary {
+  background: linear-gradient(45deg, #7C3AED, #A855F7);
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
+  filter: saturate(1.2);
+}
+
+
+.atmospheric-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(124,58,237,0.1) 0%, rgba(124,58,237,0) 70%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bg-radial-gradient {
+  background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(124, 58, 237, 0.18) 0%, rgba(124, 58, 237, 0) 60%);
+}
+
+.bg-glow {
+  background: radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.35) 0%, rgba(168, 85, 247, 0) 70%);
+}
+
+.primary-gradient-text {
+  background: var(--color-primary-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}

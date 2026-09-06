@@ -1,0 +1,57 @@
+// tailwind.config.cjs
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./src/**/*.{html,js,jsx,ts,tsx}",
+    "./index.html"
+  ],
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "surface": "var(--color-surface)",
+        "primary": "var(--color-primary)",
+        "primary-fixed": "var(--color-primary-fixed)",
+        "primary-fixed-dim": "var(--color-primary-fixed-dim)",
+        "on-primary": "var(--color-on-primary)",
+        "on-primary-fixed-variant": "var(--color-on-primary-fixed-variant)",
+        "secondary": "var(--color-secondary)",
+        "secondary-fixed": "var(--color-secondary-fixed)",
+        "on-secondary": "var(--color-on-secondary)",
+        "tertiary": "var(--color-tertiary)",
+        "on-tertiary": "var(--color-on-tertiary)",
+        "surface-variant": "var(--color-surface-variant)",
+        "surface-container-low": "var(--color-surface-container-low)",
+        "surface-container": "var(--color-surface-container)",
+        "on-surface": "var(--color-on-surface)",
+        "on-surface-variant": "var(--color-on-surface-variant)",
+        "outline": "var(--color-outline)",
+        "primary-gradient": "var(--color-primary-gradient)"
+      },
+      borderRadius: {
+        DEFAULT: "var(--radius-sm)",
+        lg: "var(--radius-md)",
+        xl: "var(--radius-lg)",
+        full: "var(--radius-full)"
+      },
+      spacing: {
+        "container-max": "var(--spacing-container-max)",
+        "element-gap": "var(--spacing-element-gap)",
+        "section-gap": "var(--spacing-section-gap)",
+        gutter: "var(--spacing-gutter)",
+        "margin-mobile": "var(--spacing-margin-mobile)"
+      },
+      fontFamily: {
+        "body-md": ["Inter"],
+        "title-md": ["Geist"],
+        "headline-lg": ["Geist"]
+      },
+      fontSize: {
+        "headline-lg": ["32px", { lineHeight: "40px", fontWeight: "600" }],
+        "title-md": ["20px", { lineHeight: "28px", fontWeight: "600" }],
+        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }]
+      }
+    }
+  },
+  plugins: []
+};
