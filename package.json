@@ -13,6 +13,8 @@
   "license": "ISC",
   "dependencies": {
     "@supabase/supabase-js": "^2.112.4",
+    "html2canvas-pro": "^2.4.2",
+    "qrcode": "^1.5.4",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-router-dom": "^7.18.3"
@@ -21,7 +23,6 @@
     "@tailwindcss/postcss": "^4.3.3",
     "@vitejs/plugin-react": "^6.1.1",
     "autoprefixer": "^10.5.4",
-    "html2canvas": "^1.4.1",
     "jspdf": "^4.2.1",
     "postcss": "^8.5.26",
     "tailwindcss": "^4.3.3",

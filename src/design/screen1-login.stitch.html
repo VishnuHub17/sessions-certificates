@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pathwisse - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#131316",
+                        "on-tertiary-fixed-variant": "#62259b",
+                        "primary-fixed": "#eaddff",
+                        "on-error": "#690005",
+                        "on-secondary-fixed": "#2c0051",
+                        "tertiary-fixed": "#f0dbff",
+                        "on-primary-container": "#ede0ff",
+                        "primary-fixed-dim": "#d2bbff",
+                        "on-primary-fixed-variant": "#5a00c6",
+                        "secondary-container": "#6f00be",
+                        "on-secondary": "#490080",
+                        "on-surface-variant": "#ccc3d8",
+                        "surface-dim": "#131316",
+                        "inverse-surface": "#e5e1e5",
+                        "on-primary": "#3f008e",
+                        "primary-container": "#7c3aed",
+                        "surface-container-low": "#1c1b1e",
+                        "secondary-fixed-dim": "#ddb7ff",
+                        "on-background": "#e5e1e5",
+                        "error": "#ffb4ab",
+                        "surface-variant": "#353438",
+                        "surface-bright": "#39393c",
+                        "background": "#131316",
+                        "error-container": "#93000a",
+                        "surface-container-high": "#2a2a2d",
+                        "surface-container-lowest": "#0e0e11",
+                        "on-secondary-fixed-variant": "#6900b3",
+                        "on-tertiary-container": "#f2e0ff",
+                        "inverse-on-surface": "#313033",
+                        "primary": "#d2bbff",
+                        "secondary-fixed": "#f0dbff",
+                        "outline": "#958da1",
+                        "inverse-primary": "#732ee4",
+                        "on-tertiary": "#490081",
+                        "secondary": "#ddb7ff",
+                        "on-primary-fixed": "#25005a",
+                        "on-surface": "#e5e1e5",
+                        "on-secondary-container": "#d6a9ff",
+                        "tertiary-container": "#844abe",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#ddb8ff",
+                        "surface-tint": "#d2bbff",
+                        "outline-variant": "#4a4455",
+                        "tertiary": "#ddb8ff",
+                        "surface-container-highest": "#353438",
+                        "surface-container": "#201f22",
+                        "on-tertiary-fixed": "#2c0051"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1200px",
+                        "element-gap": "16px",
+                        "section-gap": "64px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Geist"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Geist"],
+                        "display-lg": ["Geist"],
+                        "label-sm": ["Geist"],
+                        "title-md": ["Geist"],
+                        "certificate-name": ["Geist"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "title-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "certificate-name": ["36px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        @font-face {
+            font-family: 'Geist';
+            src: url('https://cdn.jsdelivr.net/fontsource/fonts/geist-sans@latest/latin-400-normal.woff2') format('woff2');
+            font-weight: 400;
+        }
+        @font-face {
+            font-family: 'Geist';
+            src: url('https://cdn.jsdelivr.net/fontsource/fonts/geist-sans@latest/latin-500-normal.woff2') format('woff2');
+            font-weight: 500;
+        }
+        @font-face {
+            font-family: 'Geist';
+            src: url('https://cdn.jsdelivr.net/fontsource/fonts/geist-sans@latest/latin-600-normal.woff2') format('woff2');
+            font-weight: 600;
+        }
+        @font-face {
+            font-family: 'Geist';
+            src: url('https://cdn.jsdelivr.net/fontsource/fonts/geist-sans@latest/latin-700-normal.woff2') format('woff2');
+            font-weight: 700;
+        }
+
+        body {
+            background-color: #050507;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+            color: #e5e1e5;
+            min-height: 100vh;
+            display: flex;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .ambient-glow {
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.08) 0%, rgba(124, 58, 237, 0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .glass-panel {
+            background: rgba(16, 16, 23, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .primary-gradient-text {
+            background: linear-gradient(135deg, #d2bbff 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .input-field {
+            background: #101017;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #e5e1e5;
+            transition: all 0.2s ease;
+        }
+
+        .input-field:focus {
+            border-color: #7c3aed;
+            outline: none;
+            box-shadow: inset 0 0 10px rgba(124, 58, 237, 0.1);
+        }
+
+        /* 3D Tilt container */
+        .tilt-wrapper {
+            perspective: 1000px;
+            width: 100%;
+            max-width: 440px;
+        }
+
+        .tilt-card {
+            transition: transform 0.1s ease-out;
+            transform-style: preserve-3d;
+        }
+
+        /* Background visual pattern */
+        .bg-pattern {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            opacity: 0.4;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 64px 64px;
+        }
+    </style>
+</head>
+<body class="flex flex-col md:flex-row w-full min-h-screen relative">
+<div class="ambient-glow"></div>
+<!-- Left Column (60%) -->
+<div class="hidden md:flex flex-col w-[60%] relative p-12 z-10 overflow-hidden">
+<div class="bg-pattern"></div>
+<!-- Abstract Visual Representation (Background for Left Col) -->
+<div class="absolute right-0 top-1/2 -translate-y-1/2 w-[800px] h-[800px] z-0 opacity-40 pointer-events-none" data-alt="A highly abstract, ethereal 3D rendering of floating, layered geometric planes representing digital certificates in a vast, dark digital space. The scene is illuminated by subtle, volumetric purple light rays (hex #7c3aed) piercing through a moody, near-black environment. The composition features translucent, frosted glass textures and sharp, precise edges, embodying a premium, high-fidelity corporate aesthetic. The overall mood is mysterious, professional, and sophisticated, reflecting a modern tech brand's visual language." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBBXqjSwZ0WQnKJScQUtojjsqa5RtCYo0KcDcfCO7KHovQb6ZbrYAj4i04wyEoVb8_lQ3PfZR-DBNkOmb5DRRSYvYIcOApASiU1yjWR-rMTYZBOMzlcih4mroONrOJHU6hCsE4SmDl4OMFROfP05LcT0stxX6LHA8IbBk-68NRj-R2caAOQLsUvD_xrWhMY7EGWLSS6YIcftgvoTTwZB9nRrsRJwNQXNl77OhDSYF15uv1ax_izp-eMkw')"></div>
+<div class="flex items-center gap-2 mb-auto relative z-10">
+<span class="text-title-md font-title-md font-bold text-on-surface">Pathwisse</span>
+</div>
+<div class="relative z-10 max-w-xl mt-32">
+<h1 class="text-display-lg font-display-lg mb-6">
+                Your Pathwisse sessions.<br/>
+                Your <span class="primary-gradient-text">certificates</span>.
+            </h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant max-w-md">
+                Sign in to access certificates from the Pathwisse sessions you've attended. Verify your achievements and download high-resolution copies.
+            </p>
+</div>
+<div class="mt-auto text-label-sm font-label-sm text-on-surface-variant/50 relative z-10">
+            © 2024 Pathwisse. Secure credential issuance.
+        </div>
+</div>
+<!-- Right Column (40% - Authentication) -->
+<div class="w-full md:w-[40%] flex items-center justify-center p-6 md:p-12 z-10 min-h-screen bg-[#0B0B10]/80 md:bg-transparent backdrop-blur-md md:backdrop-blur-none border-l-0 md:border-l border-white/5 relative shadow-[-20px_0_40px_rgba(0,0,0,0.3)]">
+<div class="ambient-glow !w-[400px] !h-[400px] !opacity-50"></div>
+<div class="tilt-wrapper z-10" id="tiltWrapper">
+<div class="tilt-card glass-panel rounded-xl p-8 md:p-10 w-full" id="tiltCard">
+<div class="flex items-center gap-2 mb-8 md:hidden">
+<span class="text-title-md font-title-md font-bold text-on-surface">Pathwisse</span>
+</div>
+<div class="mb-8">
+<h2 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg-mobile md:font-headline-lg mb-2">Welcome back</h2>
+<p class="text-body-md font-body-md text-on-surface-variant">Sign in with the email used during session registration.</p>
+</div>
+<form class="space-y-6">
+<div class="space-y-4">
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-2" for="email">Email address</label>
+<input class="input-field w-full rounded-lg px-4 py-3 text-body-md font-body-md focus:ring-0" id="email" placeholder="name@company.com" required="" type="email"/>
+</div>
+<div>
+<div class="flex justify-between items-center mb-2">
+<label class="block text-label-sm font-label-sm text-on-surface-variant" for="password">Password</label>
+<a class="text-label-sm font-label-sm text-primary hover:text-primary-fixed-dim transition-colors" href="#">Forgot password?</a>
+</div>
+<input class="input-field w-full rounded-lg px-4 py-3 text-body-md font-body-md focus:ring-0" id="password" placeholder="••••••••" required="" type="password"/>
+</div>
+</div>
+<div class="flex items-center">
+<input class="w-4 h-4 rounded border-white/20 bg-[#101017] text-primary-container focus:ring-primary-container focus:ring-offset-[#101017]" id="remember-me" type="checkbox"/>
+<label class="ml-2 block text-label-sm font-label-sm text-on-surface-variant" for="remember-me">
+                            Remember me for 30 days
+                        </label>
+</div>
+<button class="btn-primary w-full py-3 px-4 rounded-lg text-body-md font-body-md font-semibold flex justify-center items-center gap-2" type="submit">
+                        Sign in
+                        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</form>
+<div class="mt-8 text-center border-t border-white/5 pt-6">
+<p class="text-label-sm font-label-sm text-on-surface-variant">
+                        Need help accessing your certificates? <br/>
+<a class="text-primary hover:text-primary-fixed-dim transition-colors" href="#">Contact support</a>
+</p>
+</div>
+</div>
+</div>
+</div>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const wrapper = document.getElementById('tiltWrapper');
+            const card = document.getElementById('tiltCard');
+            if (!wrapper || !card) return;
+            if (window.innerWidth >= 768) {
+                wrapper.addEventListener('mousemove', (e) => {
+                    const rect = wrapper.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    const maxRotation = 6;
+                    const rotateX = -(y / (rect.height / 2)) * maxRotation;
+                    const rotateY = (x / (rect.width / 2)) * maxRotation;
+                    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+                wrapper.addEventListener('mouseleave', () => {
+                    card.style.transition = 'transform 0.5s ease-out';
+                    card.style.transform = 'rotateX(0) rotateY(0)';
+                    setTimeout(() => {
+                        card.style.transition = 'transform 0.1s ease-out';
+                    }, 500);
+                });
+            }
+        });
+    </script>
+</body></html>

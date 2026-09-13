@@ -116,7 +116,8 @@ async function loadBundle(adminClient: ReturnType<typeof createClient>, userId: 
   const { data: certs, error: certErr } = await adminClient
     .from("certificates")
     .select("*")
-    .eq("user_id", userId);
+    .eq("user_id", userId)
+    .eq("status", "issued"); // revoked certificates must never present as a valid, downloadable certificate
   if (certErr) throw certErr;
 
   return (attendance || [])
@@ -246,6 +247,7 @@ async function handleRequest(req: Request): Promise<Response> {
       .select("*")
       .eq("session_id", sessionId)
       .eq("user_id", match.user_id)
+      .eq("status", "issued") // a revoked certificate must never present as valid
       .maybeSingle();
 
     return json({ session: attendance.sessions, certificate: cert || null });

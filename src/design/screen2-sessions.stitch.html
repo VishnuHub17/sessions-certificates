@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pathwisse - My Sessions</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #050507;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+            color: #e5e1e5;
+            min-height: 100vh;
+        }
+        .bg-glow {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.05) 0%, rgba(124, 58, 237, 0) 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .glass-card {
+            background: rgba(16, 16, 23, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(124, 58, 237, 0.4);
+            box-shadow: 0 0 30px -10px rgba(124, 58, 237, 0.2), inset 0 0 20px -10px rgba(124, 58, 237, 0.1);
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #7C3AED, #A855F7);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            filter: brightness(1.1);
+            box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
+        }
+    </style>
+</head>
+<body class="antialiased font-body-md text-body-md overflow-x-hidden">
+<div class="bg-glow"></div>
+<nav class="bg-surface/80 dark:bg-surface/80 backdrop-blur-xl docked full-width top-0 border-b border-white/10 shadow-sm fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<span class="text-title-md font-title-md font-bold text-on-surface dark:text-on-surface">Pathwisse</span>
+</div>
+<div class="flex items-center gap-6">
+<ul class="flex gap-6">
+<li><a class="text-primary dark:text-primary font-bold border-b-2 border-primary pb-1 text-label-sm font-label-sm uppercase hover:bg-white/5 transition-colors duration-200" href="#">My Certificates</a></li>
+<li><a class="text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface text-label-sm font-label-sm uppercase hover:bg-white/5 transition-colors duration-200" href="#">Support</a></li>
+</ul>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-white/10 ml-4 cursor-pointer hover:border-primary transition-colors">
+<img alt="Student Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1qamhI6kqs7YMsXbr3mPhqld3BYK84ZkPTYk5WlxHRahrTqjglNa0SNuFAtU4Sni7Mld-tidiH3gLQTx2Vnoc5rQHyiY0ecpKS18ipOFAMGlesU7npBqajZAcWeCDJ9gCRmwnwDqJyHV-91mrt_Af-ffxKodJpRMCa5K4VAyPlfK5z3i6l--1lIZ2MGZH3goMenyHTJRr9IrS0N8CkccFVOH2MLpgQ5NGPfOuXGO737RITuIHyD9XdQ"/>
+</div>
+<button aria-label="Logout" class="text-on-surface-variant hover:text-white transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">logout</span>
+</button>
+</div>
+</nav>
+<main class="relative z-10 pt-32 pb-24 px-gutter max-w-container-max mx-auto w-full">
+<header class="mb-section-gap">
+<h1 class="text-display-lg font-display-lg text-white mb-4">My Sessions</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant max-w-2xl">
+                Sessions you've attended with Pathwisse and the certificates available for them.
+            </p>
+</header>
+<div class="flex flex-col gap-element-gap">
+<div class="glass-card flex flex-col md:flex-row items-start md:items-center p-6 gap-6 relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-r from-primary-container/0 to-primary-container/0 group-hover:from-primary-container/5 transition-all duration-300 pointer-events-none"></div>
+<div class="flex-1 flex flex-col gap-2 relative z-10">
+<span class="text-label-sm font-label-sm text-primary tracking-wider uppercase">CAREER SESSION</span>
+<h2 class="text-headline-lg-mobile font-headline-lg-mobile text-white leading-tight">Career Understanding Session</h2>
+<div class="flex flex-wrap items-center gap-4 text-sm text-on-surface-variant mt-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+<span>28 August 2026</span>
+</div>
+<div class="w-1 h-1 rounded-full bg-white/20"></div>
+<div class="flex items-center gap-1.5 text-emerald-400">
+<span class="material-symbols-outlined text-[16px] text-emerald-400" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Attended</span>
+</div>
+</div>
+</div>
+<div class="w-full md:w-auto flex flex-col items-start md:items-end gap-3 relative z-10 border-t border-white/5 md:border-t-0 md:border-l md:border-white/5 pt-4 md:pt-0 md:pl-6">
+<span class="text-label-sm font-label-sm text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">workspace_premium</span>
+                        Certificate available
+                    </span>
+<button class="btn-primary w-full md:w-auto px-6 py-2.5 rounded-lg text-white font-semibold flex items-center justify-center gap-2 group/btn">
+                        View Certificate
+                        <span class="material-symbols-outlined text-[18px] group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- (two further example cards omitted here for brevity — same markup, different data) -->
+</div>
+</main>
+<footer class="bg-transparent text-on-surface-variant w-full py-8 flex flex-col md:flex-row justify-between items-center px-gutter max-w-container-max mx-auto border-t border-white/5 mt-section-gap relative z-10">
+<div class="text-label-sm font-label-sm mb-4 md:mb-0">
+            © 2024 Pathwisse. All rights reserved.
+        </div>
+<ul class="flex gap-6">
+<li><a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors duration-200 text-label-sm font-label-sm uppercase" href="#">Support</a></li>
+<li><a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors duration-200 text-label-sm font-label-sm uppercase" href="#">Privacy Policy</a></li>
+<li><a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors duration-200 text-label-sm font-label-sm uppercase" href="#">Terms of Service</a></li>
+</ul>
+</footer>
+</body></html>

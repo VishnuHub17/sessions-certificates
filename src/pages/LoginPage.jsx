@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import { sendOtp, verifyOtp, normalizePhoneIN, isValidOtp, isTestAuthEnabled } from '../lib/phoneAuthService.js';
@@ -7,6 +7,46 @@ const formatE164ForDisplay = (e164) => {
   // +919876543210 -> +91 98765 43210
   const digits = e164.replace('+91', '');
   return `+91 ${digits.slice(0, 5)} ${digits.slice(5)}`;
+};
+
+// 3D tilt effect on the auth card, ported 1:1 from the Stitch export's vanilla-JS
+// mousemove handler (desktop only).
+const useCardTilt = () => {
+  const wrapperRef = useRef(null);
+  const cardRef = useRef(null);
+
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    const card = cardRef.current;
+    if (!wrapper || !card || window.innerWidth < 768) return undefined;
+
+    const handleMouseMove = (e) => {
+      const rect = wrapper.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      const maxRotation = 6;
+      const rotateX = -(y / (rect.height / 2)) * maxRotation;
+      const rotateY = (x / (rect.width / 2)) * maxRotation;
+      card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    };
+
+    const handleMouseLeave = () => {
+      card.style.transition = 'transform 0.5s ease-out';
+      card.style.transform = 'rotateX(0) rotateY(0)';
+      setTimeout(() => {
+        card.style.transition = 'transform 0.1s ease-out';
+      }, 500);
+    };
+
+    wrapper.addEventListener('mousemove', handleMouseMove);
+    wrapper.addEventListener('mouseleave', handleMouseLeave);
+    return () => {
+      wrapper.removeEventListener('mousemove', handleMouseMove);
+      wrapper.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
+  return { wrapperRef, cardRef };
 };
 
 const LoginPage = () => {
@@ -20,6 +60,7 @@ const LoginPage = () => {
   const [sending, setSending] = useState(false);
   const [verifying, setVerifying] = useState(false);
   const otpInputRef = useRef(null);
+  const { wrapperRef, cardRef } = useCardTilt();
 
   if (!sessionLoading && (session || testSession)) {
     return <Navigate to="/sessions" replace />;
@@ -71,127 +112,135 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row font-body-md text-body-md relative overflow-hidden">
-      <div className="absolute inset-0 bg-radial-gradient pointer-events-none" />
-      <div className="absolute inset-0 bg-noise opacity-20 pointer-events-none" />
+    <div className="flex flex-col md:flex-row w-full min-h-screen relative">
+      <div className="ambient-glow" />
 
-      <div className="hidden md:flex flex-col w-2/3 p-12 relative z-10">
-        <div className="flex items-center gap-2 mb-4">
+      {/* Left Column (60%) */}
+      <div className="hidden md:flex flex-col w-[60%] relative p-12 z-10 overflow-hidden">
+        <div className="bg-pattern" />
+        <div
+          className="absolute right-0 top-1/2 -translate-y-1/2 w-[800px] h-[800px] z-0 opacity-40 pointer-events-none"
+          style={{
+            backgroundImage:
+              "url('https://lh3.googleusercontent.com/aida-public/AB6AXuBBXqjSwZ0WQnKJScQUtojjsqa5RtCYo0KcDcfCO7KHovQb6ZbrYAj4i04wyEoVb8_lQ3PfZR-DBNkOmb5DRRSYvYIcOApASiU1yjWR-rMTYZBOMzlcih4mroONrOJHU6hCsE4SmDl4OMFROfP05LcT0stxX6LHA8IbBk-68NRj-R2caAOQLsUvD_xrWhMY7EGWLSS6YIcftgvoTTwZB9nRrsRJwNQXNl77OhDSYF15uv1ax_izp-eMkw')",
+          }}
+        />
+        <div className="flex items-center gap-2 mb-auto relative z-10">
           <span className="text-title-md font-title-md font-bold text-on-surface">Pathwisse</span>
         </div>
-        <div className="mt-32 max-w-xl">
+        <div className="relative z-10 max-w-xl mt-32">
           <h1 className="text-display-lg font-display-lg mb-6">
             Your Pathwisse sessions.<br />
-            <span className="primary-gradient-text">certificates</span>.
+            Your <span className="primary-gradient-text">certificates</span>.
           </h1>
-          <p className="text-body-lg text-on-surface-variant max-w-md">
-            Sign in to access certificates from the Pathwisse sessions you've attended. Verify your achievements and download high‑resolution copies.
+          <p className="text-body-lg font-body-lg text-on-surface-variant max-w-md">
+            Sign in to access certificates from the Pathwisse sessions you've attended. Verify your achievements and download high-resolution copies.
           </p>
         </div>
-        <div className="mt-auto text-label-sm text-on-surface-variant/50">
-          © 2026 Pathwisse. Secure credential issuance.
+        <div className="mt-auto text-label-sm font-label-sm text-on-surface-variant/50 relative z-10">
+          © 2024 Pathwisse. Secure credential issuance.
         </div>
       </div>
 
-      <div className="w-full md:w-1/3 flex items-center justify-center p-6 md:p-12 relative z-10 bg-[#0B0B10]/80 md:bg-transparent backdrop-blur-md md:backdrop-blur-none border-l border-white/5">
-        <div className="absolute inset-0 bg-glow opacity-30 pointer-events-none" />
-        <div className="glass-panel rounded-xl p-8 w-full" style={{ width: '420px' }}>
-          <div className="flex items-center gap-2 mb-8 md:hidden">
-            <span className="text-title-md font-title-md font-bold text-on-surface">Pathwisse</span>
-          </div>
-          <div className="mb-8 text-center">
-            <h2 className="text-headline-lg font-headline-lg mb-2">Certificate Portal</h2>
-            <p className="text-body-md text-on-surface-variant">
-              Enter your mobile number to access your participation certificates.
-            </p>
-          </div>
-
-          {isTestAuthEnabled() && (
-            <div className="mb-6 rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-center text-label-sm text-primary">
-              Test mode: any 6-digit OTP is accepted.
+      {/* Right Column (40% - Authentication) */}
+      <div className="w-full md:w-[40%] flex items-center justify-center p-6 md:p-12 z-10 min-h-screen bg-[#0B0B10]/80 md:bg-transparent backdrop-blur-md md:backdrop-blur-none border-l-0 md:border-l border-white/5 relative shadow-[-20px_0_40px_rgba(0,0,0,0.3)]">
+        <div className="ambient-glow !w-[400px] !h-[400px] !opacity-50" />
+        <div className="tilt-wrapper z-10" ref={wrapperRef}>
+          <div className="tilt-card login-glass-panel rounded-xl p-8 md:p-10 w-full" ref={cardRef}>
+            <div className="flex items-center gap-2 mb-8 md:hidden">
+              <span className="text-title-md font-title-md font-bold text-on-surface">Pathwisse</span>
             </div>
-          )}
+            <div className="mb-8">
+              <h2 className="text-headline-lg-mobile md:text-headline-lg font-headline-lg-mobile md:font-headline-lg mb-2">Welcome back</h2>
+              <p className="text-body-md font-body-md text-on-surface-variant">Sign in with the mobile number used during session registration.</p>
+            </div>
 
-          {step === 'phone' && (
-            <form className="space-y-6" onSubmit={handleSendOtp}>
-              <div className="space-y-2">
-                <label htmlFor="phone" className="block text-label-sm font-label-sm text-on-surface-variant mb-1">
-                  Mobile number
-                </label>
-                <div className="relative flex items-center input-field rounded-lg pr-4 focus-within:ring-0">
-                  <span className="pl-3 pr-2 text-on-surface-variant border-r border-white/10 text-body-md">+91</span>
-                  <input
-                    id="phone"
-                    type="tel"
-                    inputMode="numeric"
-                    autoComplete="tel-national"
-                    placeholder="98765 43210"
-                    className="w-full bg-transparent pl-3 py-3 text-body-md outline-none"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    required
-                  />
+            {isTestAuthEnabled() && (
+              <div className="mb-6 rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-center text-label-sm font-label-sm text-primary">
+                Test mode: any 6-digit OTP is accepted.
+              </div>
+            )}
+
+            {step === 'phone' && (
+              <form className="space-y-6" onSubmit={handleSendOtp}>
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-label-sm font-label-sm text-on-surface-variant mb-2" htmlFor="phone">Mobile number</label>
+                    <input
+                      id="phone"
+                      type="tel"
+                      inputMode="numeric"
+                      autoComplete="tel-national"
+                      placeholder="+91 98765 43210"
+                      className="input-field w-full rounded-lg px-4 py-3 text-body-md font-body-md focus:ring-0"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      required
+                    />
+                  </div>
                 </div>
-              </div>
-              {error && <p className="text-error text-sm">{error}</p>}
-              <button
-                type="submit"
-                disabled={sending}
-                className="btn-primary w-full py-3 rounded-full text-body-md font-semibold flex items-center justify-center gap-2 disabled:opacity-60"
-              >
-                {sending ? 'Sending…' : 'Send OTP'}
-                <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
-              </button>
-            </form>
-          )}
+                {error && <p className="text-error text-sm">{error}</p>}
+                <button
+                  type="submit"
+                  disabled={sending}
+                  className="login-btn-primary w-full py-3 px-4 rounded-lg text-body-md font-body-md font-semibold flex justify-center items-center gap-2 disabled:opacity-60"
+                >
+                  {sending ? 'Sending…' : 'Send OTP'}
+                  <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+                </button>
+              </form>
+            )}
 
-          {step === 'otp' && (
-            <form className="space-y-6" onSubmit={handleVerifyOtp}>
-              <p className="text-center text-body-md text-on-surface-variant">
-                OTP sent to <span className="text-on-surface font-semibold">{formatE164ForDisplay(normalizedPhone)}</span>
+            {step === 'otp' && (
+              <form className="space-y-6" onSubmit={handleVerifyOtp}>
+                <p className="text-center text-body-md font-body-md text-on-surface-variant">
+                  OTP sent to <span className="text-on-surface font-semibold">{formatE164ForDisplay(normalizedPhone)}</span>
+                </p>
+                <div className="space-y-4">
+                  <div>
+                    <div className="flex justify-between items-center mb-2">
+                      <label className="block text-label-sm font-label-sm text-on-surface-variant" htmlFor="otp">Enter OTP</label>
+                      <button
+                        type="button"
+                        onClick={handleChangeNumber}
+                        className="text-label-sm font-label-sm text-primary hover:text-primary-fixed-dim transition-colors"
+                      >
+                        Change number
+                      </button>
+                    </div>
+                    <input
+                      id="otp"
+                      ref={otpInputRef}
+                      type="text"
+                      inputMode="numeric"
+                      autoComplete="one-time-code"
+                      placeholder="••••••"
+                      maxLength={6}
+                      className="input-field w-full rounded-lg px-4 py-3 text-body-md font-body-md focus:ring-0"
+                      value={otp}
+                      onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                      required
+                    />
+                  </div>
+                </div>
+                {error && <p className="text-error text-sm">{error}</p>}
+                <button
+                  type="submit"
+                  disabled={verifying || !isValidOtp(otp)}
+                  className="login-btn-primary w-full py-3 px-4 rounded-lg text-body-md font-body-md font-semibold flex justify-center items-center gap-2 disabled:opacity-60"
+                >
+                  {verifying ? 'Verifying…' : 'Sign in'}
+                  <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+                </button>
+              </form>
+            )}
+
+            <div className="mt-8 text-center border-t border-white/5 pt-6">
+              <p className="text-label-sm font-label-sm text-on-surface-variant">
+                Need help accessing your certificates? <br />
+                <a href="#" className="text-primary hover:text-primary-fixed-dim transition-colors">Contact support</a>
               </p>
-              <div className="space-y-2">
-                <label htmlFor="otp" className="block text-label-sm font-label-sm text-on-surface-variant mb-1">
-                  Enter OTP
-                </label>
-                <input
-                  id="otp"
-                  ref={otpInputRef}
-                  type="text"
-                  inputMode="numeric"
-                  autoComplete="one-time-code"
-                  placeholder="••••••"
-                  maxLength={6}
-                  className="input-field w-full rounded-lg px-4 py-3 text-center text-2xl tracking-[0.5em] focus:ring-0"
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                  required
-                />
-              </div>
-              {error && <p className="text-error text-sm">{error}</p>}
-              <button
-                type="submit"
-                disabled={verifying || !isValidOtp(otp)}
-                className="btn-primary w-full py-3 rounded-full text-body-md font-semibold flex items-center justify-center gap-2 disabled:opacity-60"
-              >
-                {verifying ? 'Verifying…' : 'Verify & Continue'}
-                <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
-              </button>
-              <button
-                type="button"
-                onClick={handleChangeNumber}
-                className="w-full text-center text-label-sm text-primary hover:text-primary-fixed-dim transition-colors"
-              >
-                Change number
-              </button>
-            </form>
-          )}
-
-          <div className="mt-8 text-center border-t border-white/5 pt-6">
-            <p className="text-label-sm text-on-surface-variant">
-              Need help accessing your certificates?<br />
-              <a href="#" className="text-primary hover:text-primary-fixed-dim transition-colors">Contact support</a>
-            </p>
+            </div>
           </div>
         </div>
       </div>

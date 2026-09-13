@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import LoginPage from './pages/LoginPage.jsx';
 import SessionsPage from './pages/SessionsPage.jsx';
 import SessionDetailPage from './pages/SessionDetailPage.jsx';
+import VerifyPage from './pages/VerifyPage.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 
 const App = () => {
@@ -11,6 +12,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/verify/:verificationCode" element={<VerifyPage />} />
         <Route
           path="/sessions"
           element={

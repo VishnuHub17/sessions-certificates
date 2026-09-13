@@ -69,19 +69,25 @@ function clearTestSession() {
 async function invokeTestLogin(payload) {
   const { data, error } = await supabase.functions.invoke(FUNCTION_NAME, { body: payload });
   if (error) {
-    // supabase-js surfaces non-2xx responses here without the parsed body in older versions;
-    // try to recover the server's JSON error message when available.
-    const serverMessage = error?.context?.body ? await tryReadJson(error.context.body) : null;
-    return { ok: false, error: serverMessage?.error || error.message || 'Test login is unavailable.' };
+    // supabase-js's FunctionsHttpError exposes the raw fetch Response as `.context`
+    // (not an already-read body) — try to recover the server's JSON error message from it.
+    // When there's no response at all (network failure, timeout, offline), `.context` is
+    // absent and `error.message` is a generic client-library string ("Failed to send a
+    // request to the Edge Function") — never show that raw string to the user.
+    const serverMessage = error?.context ? await tryReadJson(error.context) : null;
+    if (!serverMessage?.error) console.error('[phoneAuthService] test login request failed', error);
+    return { ok: false, error: serverMessage?.error || 'Could not reach the server. Please check your connection and try again.' };
   }
   if (data?.error) return { ok: false, error: data.error };
   return { ok: true, data };
 }
 
-async function tryReadJson(body) {
+async function tryReadJson(response) {
   try {
-    if (typeof body === 'string') return JSON.parse(body);
-    if (body instanceof Blob) return JSON.parse(await body.text());
+    if (typeof response === 'string') return JSON.parse(response);
+    if (response instanceof Blob) return JSON.parse(await response.text());
+    if (response && typeof response.clone === 'function') return await response.clone().json();
+    if (response && typeof response.json === 'function') return await response.json();
     return null;
   } catch {
     return null;

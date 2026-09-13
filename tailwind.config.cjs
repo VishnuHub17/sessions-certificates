@@ -23,6 +23,7 @@ module.exports = {
         "surface-variant": "var(--color-surface-variant)",
         "surface-container-low": "var(--color-surface-container-low)",
         "surface-container": "var(--color-surface-container)",
+        "surface-container-highest": "var(--color-surface-container-highest)",
         "on-surface": "var(--color-on-surface)",
         "on-surface-variant": "var(--color-on-surface-variant)",
         "outline": "var(--color-outline)",
@@ -43,13 +44,23 @@ module.exports = {
       },
       fontFamily: {
         "body-md": ["Inter"],
+        "body-lg": ["Inter"],
         "title-md": ["Geist"],
-        "headline-lg": ["Geist"]
+        "headline-lg": ["Geist"],
+        "headline-lg-mobile": ["Geist"],
+        "display-lg": ["Geist"],
+        "label-sm": ["Geist"],
+        "certificate-name": ["Geist"]
       },
       fontSize: {
-        "headline-lg": ["32px", { lineHeight: "40px", fontWeight: "600" }],
+        "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+        "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "600" }],
+        "headline-lg-mobile": ["24px", { lineHeight: "32px", fontWeight: "600" }],
         "title-md": ["20px", { lineHeight: "28px", fontWeight: "600" }],
-        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }]
+        "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+        "label-sm": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "500" }],
+        "certificate-name": ["36px", { lineHeight: "1.2", fontWeight: "700" }]
       }
     }
   },
